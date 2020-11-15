@@ -79,7 +79,22 @@ impl Ui {
             })
         });
         egui::CentralPanel::default().show(&self.ui_instance.context(), |ui| {
-            ui.add(egui::TextEdit::new(&mut self.storage.filter_text).multiline(false));
+            ui.vertical(|ui| {
+                ui.horizontal(|ui| {
+                    ui.add(egui::TextEdit::new(&mut self.storage.filter_text).multiline(false));
+                    ui.with_layout(
+                        egui::Layout::horizontal(egui::Align::Center).reverse(),
+                        |ui| {
+                            ui.button("unlock all");
+                        },
+                    );
+                });
+                egui::ScrollArea::from_max_height(std::f32::INFINITY).show(ui, |ui| {
+                    ui.left_column(200.0).add(egui::Label::new("File"));
+                    ui.centered_column(200.0).add(egui::Label::new("Locked By"));
+                    ui.right_column(200.0).add(egui::Label::new("Action"));
+                });
+            });
         });
         let (_, paint_cmds) = self.ui_instance.end_frame();
         self.paint_jobs = self.ui_instance.context().tesselate(paint_cmds);

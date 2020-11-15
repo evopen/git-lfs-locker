@@ -8,7 +8,7 @@ fn main() {
     let event_loop = winit::event_loop::EventLoop::new();
     let window = winit::window::WindowBuilder::new()
         .with_title(env!("CARGO_PKG_NAME"))
-        .with_inner_size(winit::dpi::LogicalSize::new(800, 600))
+        .with_inner_size(winit::dpi::LogicalSize::new(640, 480))
         .with_resizable(true)
         .with_transparent(false)
         .build(&event_loop)
